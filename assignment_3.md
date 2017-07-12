@@ -1,4 +1,4 @@
-1. Explain the difference between absolute and relative positioning and absolute positioning.
+1. **Explain the difference between absolute and relative positioning and absolute positioning.**
   Both relative and absolute positioning will allow you to specify top, right, bottom, and left properties to change the placement of an element. They both will also set a new coordinate system for its children to be contained within the element. However, relative positioning will change the position of the element relative to the static position of the element given by the structure of the HTML document. Absolute positioning will set the position of an element relative to the entire webpage and isn't effected by the structure of the HTML. Absolute also allows the offset properties to be use to set the width and height of the element.
-2. Explain how box-sizing: border-box treats contained content differently than the default browser box-sizing.
+2. **Explain how box-sizing: border-box treats contained content differently than the default browser box-sizing.**
   box-sizing: border-box considers the content, padding, and border to set the width of an element. Normally, the width property specifies the width of the content and adds the sizes of the padding and border to the elements edges, making the entire box-model larger than the specified width of the content.
