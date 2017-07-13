@@ -58,6 +58,12 @@ body {
      color: rgb(233,50,117);
  }
 
+/** Assignment 5: add style definition to active pseudo-class **/
+ .links-container .navbar-link:active{
+   color: rgb(233,50,117);
+   background-color: #fff;
+ }
+
 .container {
   margin: 0 auto;
   max-width: 64rem;
