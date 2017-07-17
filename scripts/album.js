@@ -30,6 +30,22 @@
    ]
 };
 
+//My Album Example
+var albumTomWaits = {
+  title: 'Closing Time',
+  artist: 'Tom Waits',
+  label: 'Asylum Records',
+  year: '1973',
+  albumArtUrl: "https://images-na.ssl-images-amazon.com/images/I/4110y2MyY0L.jpg",
+  songs: [
+    { title: 'Ol\' 55', duration: '4:00' },
+    { title: 'I Hope That I Don\'t Fall in Love With You', duration: '3:57' },
+    { title: 'Virginia Avenue', duration: '3:12' },
+    { title: 'Old Shoes', duration: '3:43' },
+    { title: 'Midnight Lullaby', duration: '3:29' }
+  ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
    var template =
       '<tr class="album-view-song-item">'
@@ -67,4 +83,22 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
    setCurrentAlbum(albumPicasso);
+   var picasso = true;
+   var marconi = false;
+   var waits = false;
+   document.getElementsByClassName('album-view')[0].getElementsByTagName('img')[0].addEventListener("click", function(){
+     if(picasso){
+       setCurrentAlbum(albumMarconi);
+       picasso = false;
+       marconi = true;
+     } else if (marconi){
+       setCurrentAlbum(albumTomWaits);
+       marconi = false;
+       waits = true;
+     } else if(waits){
+       setCurrentAlbum(albumPicasso);
+       waits = false;
+       picasso = true;
+     }
+   });
 };
