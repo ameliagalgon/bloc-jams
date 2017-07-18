@@ -86,7 +86,17 @@ var findParentByClassName = function(node, parentClass){
     }
   }
   return null;
-}
+};
+
+//my code for getSongItem
+/*
+should take an element and, based on that element's class name(s),
+use a switch statement that returns the element with the .song-item-number class.
+*/
+var getSongItem = function(element){
+  //TODO: use a switch statement that returns the element with the .song-item-number class
+  return findParentByClassName(element, 'song-item-number');
+};
 
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
 var songRows = document.getElementsByClassName('album-view-song-item');
