@@ -65,6 +65,29 @@ var setCurrentAlbum = function(album) {
    }
 };
 
+//my code for finding parent by class name
+var findParentByClassName = function(node, parentClass){
+  //get the parent node
+  var parentNode = node.parentNode;
+  //var parentNode = document.getElementsByClassName('song-item-number')[0].parentNode; /*** FOR TESTING ***/
+  while(parentNode != null){ //while we have not reached the end of the DOM
+    //check if the class name of the parent node is the same as the given class name
+    parentClassNames = parentNode.className.split(" ");
+    for(var i = 0; i < parentClassNames.length; i++){
+      if(i != 0){
+        parentClassNames = parentNode.className.split(" ");
+      }
+      if(parentClassNames[i] === parentClass){
+        //return parentNode;
+        return parentNode;
+      } else{ //move up the DOM
+        parentNode = parentNode.parentNode;
+      }
+    }
+  }
+  return null;
+}
+
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
 var songRows = document.getElementsByClassName('album-view-song-item');
 
