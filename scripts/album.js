@@ -101,8 +101,6 @@ var getSongItem = function(element){
       //node itself
       return element;
     case 'song-item-title':
-      //sibling
-      return findParentByClassName(element, 'album-view-song-item').firstChild;
     case 'song-item-duration':
       //sibling
       return findParentByClassName(element, 'album-view-song-item').firstChild;
