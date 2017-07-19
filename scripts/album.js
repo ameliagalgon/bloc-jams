@@ -95,7 +95,22 @@ use a switch statement that returns the element with the .song-item-number class
 */
 var getSongItem = function(element){
   //TODO: use a switch statement that returns the element with the .song-item-number class
-  return findParentByClassName(element, 'song-item-number');
+  //the target could be a sibling, child, or the node itself
+  switch(element.className){
+    case 'song-item-number':
+      //node itself
+      return element;
+    case 'song-item-title':
+      //sibling
+      return findParentByClassName(element, 'album-view-song-item').firstChild;
+    case 'song-item-duration':
+      //sibling
+      return findParentByClassName(element, 'album-view-song-item').firstChild;
+    default:
+      //child
+      return findParentByClassName(element, 'song-item-number')
+  }
+  //return findParentByClassName(element, 'song-item-number');
 };
 
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
