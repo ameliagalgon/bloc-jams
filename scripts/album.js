@@ -94,7 +94,6 @@ should take an element and, based on that element's class name(s),
 use a switch statement that returns the element with the .song-item-number class.
 */
 var getSongItem = function(element){
-  console.log(element.className);
   switch(element.className){
     case 'song-item-number':
       //node itself
@@ -152,16 +151,23 @@ window.onload = function() {
      // Only target individual song rows during event delegation
      if (event.target.parentElement.className === 'album-view-song-item') {
        // Change the content from the number to the play button's HTML
-       event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+       var songItem = getSongItem(event.target);
+       var songItemNumber = songItem.getAttribute('data-song-number');
+       if(songItemNumber !== currentlyPlayingSong){
+         songItem.innerHTML = playButtonTemplate;
+       }
      }
    });
 
    for (var i = 0; i < songRows.length; i++) {
        songRows[i].addEventListener('mouseleave', function(event) {
-         // Selects first child element, which is the song-item-number element
-         this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
+         var songItem = getSongItem(event.target);
+         var songItemNumber = songItem.getAttribute('data-song-number');
+         if(songItemNumber !== currentlyPlayingSong){
+           songItem.innerHTML = songItemNumber;
+         }
        });
-       
+
        songRows[i].addEventListener('click', function(event) {
            clickHandler(event.target);
        });
