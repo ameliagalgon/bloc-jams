@@ -94,6 +94,7 @@ should take an element and, based on that element's class name(s),
 use a switch statement that returns the element with the .song-item-number class.
 */
 var getSongItem = function(element){
+  console.log(element.className);
   switch(element.className){
     case 'song-item-number':
       //node itself
@@ -101,7 +102,9 @@ var getSongItem = function(element){
     case 'song-item-title':
     case 'song-item-duration':
       //sibling
-      return findParentByClassName(element, 'album-view-song-item').querySelector('song-item-number');
+      //console.log(findParentByClassName(element,'album-view-song-item').getElementsByClassName('song-item-number')[0]);
+      //return findParentByClassName(element, 'album-view-song-item').querySelector('song-item-number');
+      return findParentByClassName(element,'album-view-song-item').getElementsByClassName('song-item-number')[0];
     case 'album-song-button':
     case 'ion-play':
     case 'ion-pause':
@@ -109,7 +112,7 @@ var getSongItem = function(element){
       return findParentByClassName(element, 'song-item-number');
     case 'album-view-song-item':
       //parent
-      return element.querySelector('song-item-number');
+      return element.getElementsByClassName('song-item-number')[0];
     default:
       return;
   }
@@ -117,7 +120,7 @@ var getSongItem = function(element){
 
 var clickHandler = function(targetElement){
   var songItem = getSongItem(targetElement);
-  if(currentlyPlayingSong){
+  if(currentlyPlayingSong === null){
     songItem.innerHTML = pauseButtonTemplate;
     currentlyPlayingSong = songItem.getAttribute('data-song-number');
   } else if(currentlyPlayingSong === songItem.getAttribute('data-song-number')){
@@ -158,7 +161,7 @@ window.onload = function() {
          // Selects first child element, which is the song-item-number element
          this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
        });
-       //TODO: fix clickHandler
+       
        songRows[i].addEventListener('click', function(event) {
            clickHandler(event.target);
        });
