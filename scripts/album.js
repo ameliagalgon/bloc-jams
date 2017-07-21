@@ -94,8 +94,6 @@ should take an element and, based on that element's class name(s),
 use a switch statement that returns the element with the .song-item-number class.
 */
 var getSongItem = function(element){
-  //TODO: use a switch statement that returns the element with the .song-item-number class
-  //the target could be a sibling, child, or the node itself
   switch(element.className){
     case 'song-item-number':
       //node itself
@@ -103,16 +101,18 @@ var getSongItem = function(element){
     case 'song-item-title':
     case 'song-item-duration':
       //sibling
-      return findParentByClassName(element, 'album-view-song-item').firstChild;
+      return findParentByClassName(element, 'album-view-song-item').querySelector('song-item-number');
     case 'album-song-button':
     case 'ion-play':
     case 'ion-pause':
       //child
       return findParentByClassName(element, 'song-item-number');
+    case 'album-view-song-item':
+      //parent
+      return element.querySelector('song-item-number');
     default:
       return;
   }
-  //return findParentByClassName(element, 'song-item-number');
 };
 
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
