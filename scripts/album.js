@@ -66,9 +66,19 @@ var setCurrentAlbum = function(album) {
 };
 
 //my code for finding parent by class name
+
+/*
+Re-write the function so that it:
+Checks to see if a parent exists. If it doesn't, then console.log a string that says "No parent found".
+Shows a different string in console.log when it fails to find a parent with the given class name: "No parent found with that class name".
+*/
 var findParentByClassName = function(node, parentClass){
   //get the parent node
   var currentParent = node.parentNode;
+  if(currentParent === null){
+    console.log("No parent found");
+    return;
+  }
   //var parentNode = document.getElementsByClassName('song-item-number')[0].parentNode; /*** FOR TESTING ***/
   while(currentParent != null){ //while we have not reached the end of the DOM
     //check if the class name of the parent node is the same as the given class name
@@ -85,7 +95,8 @@ var findParentByClassName = function(node, parentClass){
       }
     }
   }
-  return null;
+  console.log("No parent found with that class name");
+  return;
 };
 
 //my code for getSongItem
