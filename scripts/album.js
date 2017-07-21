@@ -104,9 +104,13 @@ var getSongItem = function(element){
     case 'song-item-duration':
       //sibling
       return findParentByClassName(element, 'album-view-song-item').firstChild;
-    default:
+    case 'album-song-button':
+    case 'ion-play':
+    case 'ion-pause':
       //child
-      return findParentByClassName(element, 'song-item-number')
+      return findParentByClassName(element, 'song-item-number');
+    default:
+      return;
   }
   //return findParentByClassName(element, 'song-item-number');
 };
