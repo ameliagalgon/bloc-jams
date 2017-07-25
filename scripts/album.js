@@ -41,6 +41,21 @@ var createSongRow = function(songNumber, songName, songLength) {
 
    var $row = $(template);
 
+   var clickHandler = function(){
+     if(currentlyPlayingSong) === null){
+       $(this).html(pauseButtonTemplate);
+       currentlyPlayingSong = $(this).attr('data-song-number');
+     } else if(currentlyPlayingSong === $(this).attr('data-song-number')){
+       $(this).html(playButtonTemplate);
+       currentlyPlayingSong = null;
+     } else if(currentlyPlayingSong !== $(this).attr('data-song-number')){
+       var currentlyPlayingSongElement = $('[data-song-number="' + currentlyPlayingSong + '"]');
+       currentlyPlayingSongElement.html(currentlyPlayingSongElement.attr('data-song-number'));
+       $(this).html(pauseButtonTemplate);
+       currentlyPlayingSong = $(this).attr('data-song-number');
+     }
+   };
+
    var onHover = function(event){
      var songItem = $(this).find('song-item-number');
      var songItemNumber = songItem.attr('data-song-number');
@@ -164,32 +179,12 @@ var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause">
 var currentlyPlayingSong = null;
 
 
-window.onload = function() {
+$(document).ready(function() {
    setCurrentAlbum(albumPicasso);
 
-   songListContainer.addEventListener('mouseover', function(event) {
-     // Only target individual song rows during event delegation
-     if (event.target.parentElement.className === 'album-view-song-item') {
-       // Change the content from the number to the play button's HTML
-       var songItem = getSongItem(event.target);
-       var songItemNumber = songItem.getAttribute('data-song-number');
-       if(songItemNumber !== currentlyPlayingSong){
-         songItem.innerHTML = playButtonTemplate;
-       }
-     }
-   });
-
    for (var i = 0; i < songRows.length; i++) {
-       songRows[i].addEventListener('mouseleave', function(event) {
-         var songItem = getSongItem(event.target);
-         var songItemNumber = songItem.getAttribute('data-song-number');
-         if(songItemNumber !== currentlyPlayingSong){
-           songItem.innerHTML = songItemNumber;
-         }
-       });
-
        songRows[i].addEventListener('click', function(event) {
            clickHandler(event.target);
        });
    }
-};
+});
