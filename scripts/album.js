@@ -42,17 +42,15 @@ var createSongRow = function(songNumber, songName, songLength) {
    var $row = $(template);
 
    var onHover = function(event){
-     if(event.target.className === 'album-view-song-item'){
-       var songItem = event.target.find('song-item-number');
-       var songItemNumber = songItem.attr('data-song-number');
-       if(songItemNumber !== currentlyPlayingSong){
-         songItem.html(playButtonTemplate);
-       }
+     var songItem = $(this).find('song-item-number');
+     var songItemNumber = songItem.attr('data-song-number');
+     if(songItemNumber !== currentlyPlayingSong){
+       songItem.html(playButtonTemplate);
      }
    };
 
    var offHover = function(event){
-     var songItem = event.target.find('song-item-number');
+     var songItem = $(this).find('song-item-number');
      var songItemNumber = songItem.attr('data-song-number');
      if(songItemNumber !== currentlyPlayingSong){
        songItem.html(songItemNumber);
