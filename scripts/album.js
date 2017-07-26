@@ -42,61 +42,42 @@ var createSongRow = function(songNumber, songName, songLength) {
    var $row = $(template);
 
    var clickHandler = function(){
-     /*
-     var songNumber = $(this).attr('data-song-number');
-     if(currentlyPlayingSong === null){
-       //no song it being played
-       $(this).html(pauseButtonTemplate);
-       currentlyPlayingSong = songNumber;
-     } else if(currentlyPlayingSong === songNumber){
-       //stop playing the current song
-       $(this).html(pauseButtonTemplate);
-       currentlyPlayingSong = null;
-     } else if(currentlyPlayingSong !== songNumber){
-       //switch which song it being played
-       var currentlyPlayingSongElement = $('[data-song-number="' + currentlyPlayingSong + '"]');
-       currentlyPlayingSongElement.html(currentlyPlayingSongElement.attr('data-song-number'));
-       $(this).html(playButtonTemplate);
-       currentlyPlayingSong = songItem;
-     }
-     */
+
      var songNumber = $(this).attr('data-song-number');
 
   	 if (currentlyPlayingSong !== null) {
-    	  // Revert to song number for currently playing song because user started playing new song.
+       //change the older played song to its song number
     	  var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSong + '"]');
     	  currentlyPlayingCell.html(currentlyPlayingSong);
   	 }
-  	 if (currentlyPlayingSong !== songNumber) {
-  		  // Switch from Play -> Pause button to indicate new song is playing.
+  	 if (songNumber !== currentlyPlayingSong) {
+       //change the current song to the currentlyPlayingSong
   		  $(this).html(pauseButtonTemplate);
   		  currentlyPlayingSong = songNumber;
-  	 } else if (currentlyPlayingSong === songNumber) {
-  		   // Switch from Pause -> Play button to pause currently playing song.
+  	 } else if (songNumber === currentlyPlayingSong) {
+       //stop the currently playing song
   		   $(this).html(playButtonTemplate);
   		   currentlyPlayingSong = null;
   	 }
-     console.log("hello");
    };
-   //TODO: hover not changing innerHTML of song-item-number cell
+
    var onHover = function(event){
-     var songItem = $(this).find('song-item-number');
+     var songItem = $(this).find('.song-item-number');
      var songItemNumber = songItem.attr('data-song-number');
      if(songItemNumber !== currentlyPlayingSong){
        songItem.html(playButtonTemplate);
      }
-     console.log("hover");
    };
 
    var offHover = function(event){
-     var songItem = $(this).find('song-item-number');
+     var songItem = $(this).find('.song-item-number');
      var songItemNumber = songItem.attr('data-song-number');
      if(songItemNumber !== currentlyPlayingSong){
        songItem.html(songItemNumber);
      }
    };
 
-   $row.find('song-item-number').click(clickHandler);
+   $row.find('.song-item-number').click(clickHandler);
    $row.hover(onHover, offHover);
    return $row;
 };
