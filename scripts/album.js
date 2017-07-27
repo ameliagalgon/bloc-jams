@@ -15,14 +15,13 @@ var createSongRow = function(songNumber, songName, songLength) {
 
   	 if (currentlyPlayingSongNumber !== null) {
        //change the older played song to its song number
-    	  var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+    	  var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
     	  currentlyPlayingCell.html(currentlyPlayingSongNumber);
   	 }
   	 if (songNumber !== currentlyPlayingSongNumber) {
        //change the current song to the currentlyPlayingSong
   		  $(this).html(pauseButtonTemplate);
-  		  currentlyPlayingSongNumber = songNumber;
-        currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+  		  setSong(songNumber);
         updatePlayerBarSong();
   	 } else if (songNumber === currentlyPlayingSongNumber) {
        //stop the currently playing song
@@ -47,7 +46,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      if(songItemNumber !== currentlyPlayingSongNumber){
        songItem.html(songItemNumber);
      }
-     console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
+     //console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
    };
 
    $row.find('.song-item-number').click(clickHandler);
@@ -89,40 +88,52 @@ var updatePlayerBarSong = function(){
 
   $('.main-controls .play-pause').html(playerBarPauseButton);
 };
+/*
+takes one argument, songNumber, and assigns currentlyPlayingSongNumber and currentSongFromAlbum a new value based on the new song number.
+*/
+var setSong = function(songNumber){
+  currentlyPlayingSongNumber = songNumber;
+  currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+};
+
+/*
+takes one argument, number, and returns the song number element that corresponds to that song number.
+*/
+var getSongNumberCell = function(number){
+  return $('.song-item-number[data-song-number="' + number + '"]');
+};
 
 var nextSong = function(){
   var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
   if(currentSongIndex === currentAlbum.songs.length - 1){
-    currentlyPlayingSongNumber = 1;
+    setSong(1);
   } else{
-    currentlyPlayingSongNumber++;
+    setSong(currentlyPlayingSongNumber + 1);
   }
-  currentSongFromAlbum = currentAlbum.songs[currentlyPlayingSongNumber - 1];
   //update player bar
   updatePlayerBarSong();
   //change old song number cell to the song number
-  var prevPlayingCell = $('.song-item-number[data-song-number="' + (currentSongIndex + 1) + '"]');
+  var prevPlayingCell = getSongNumberCell(currentSongIndex + 1);
   prevPlayingCell.html(currentSongIndex + 1);
   //change the new song's number cell to a pause button
-  var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+  var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
   currentlyPlayingCell.html(pauseButtonTemplate);
 };
 
 var previousSong = function(){
   var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
   if(currentSongIndex === 0){
-    currentlyPlayingSongNumber = currentAlbum.songs.length;
+    setSong(currentAlbum.songs.length);
   } else{
-    currentlyPlayingSongNumber--;
+    setSong(currentlyPlayingSongNumber - 1);
   }
-  currentSongFromAlbum = currentAlbum.songs[currentlyPlayingSongNumber - 1];
   //update player bar
   updatePlayerBarSong();
   //change old song number cell to the song number
-  var prevPlayingCell = $('.song-item-number[data-song-number="' + (currentSongIndex + 1) + '"]');
+  var prevPlayingCell = getSongNumberCell(currentSongIndex + 1);
   prevPlayingCell.html(currentSongIndex + 1);
   //change the new song's number cell to a pause button
-  var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+  var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
   currentlyPlayingCell.html(pauseButtonTemplate);
 }
 
