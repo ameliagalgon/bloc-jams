@@ -104,6 +104,9 @@ var updatePlayerBarSong = function(){
   $('.artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
 
   $('.main-controls .play-pause').html(playerBarPauseButton);
+
+  //set total time
+  setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.duration));
 };
 /*
 takes one argument, songNumber, and assigns currentlyPlayingSongNumber and currentSongFromAlbum a new value based on the new song number.
@@ -192,6 +195,7 @@ var updateSeekBarWhilePlayingSong = function(){
       var $seekBar = $('.seek-control .seek-bar');
 
       updateSeekPercentage($seekBar, seekBarFillRatio);
+      setCurrentTimeInPlayerBar(filterTimeCode(seekBarFillRatio * this.getDuration()));
     });
   }
 };
@@ -248,6 +252,33 @@ var setupSeekBars = function(){
       $(document).unbind('mouseup.thumb');
     });
   });
+};
+
+/*
+takes one argument, currentTime, that sets the text of the element with the .current-time class to the current time in the song.
+*/
+var setCurrentTimeInPlayerBar = function(currentTime){
+  $('.current-time').text(currentTime);
+};
+/*
+takes one argument, totalTime, that sets the text of the element with the .total-time class to the length of the song.
+*/
+var setTotalTimeInPlayerBar = function(totalTime){
+  $('.total-time').text(totalTime);
+};
+/*
+takes one argument, timeInSeconds. It should:
+Use the parseFloat() method to get the seconds in number form.
+Store variables for whole seconds and whole minutes (hint: use Math.floor() to round numbers down).
+Return the time in the format X:XX
+*/
+var filterTimeCode = function(timeInSeconds){
+  timeInSeconds = parseFloat(timeInSeconds);
+  var minutes = Math.floor(timeInSeconds / 60);
+  var seconds = Math.floor(timeInSeconds % 60);
+  var formattedSeconds = ("0" + seconds).slice(-2)
+
+  return minutes + ':' + formattedSeconds;
 };
 
 // Album button templates
