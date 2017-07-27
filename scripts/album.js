@@ -102,7 +102,7 @@ takes one argument, number, and returns the song number element that corresponds
 var getSongNumberCell = function(number){
   return $('.song-item-number[data-song-number="' + number + '"]');
 };
-
+/*
 var nextSong = function(){
   var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
   if(currentSongIndex === currentAlbum.songs.length - 1){
@@ -136,6 +136,31 @@ var previousSong = function(){
   var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
   currentlyPlayingCell.html(pauseButtonTemplate);
 }
+*/
+var switchSong = function(){
+  var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+  if($(this).hasClass('previous')){
+    if(currentSongIndex === 0){
+      setSong(currentAlbum.songs.length);
+    } else{
+      setSong(currentlyPlayingSongNumber - 1);
+    }
+  } else if($(this).hasClass('next')){
+    if(currentSongIndex === currentAlbum.songs.length - 1){
+      setSong(1);
+    } else{
+      setSong(currentlyPlayingSongNumber + 1);
+    }
+  }
+  //update player bar
+  updatePlayerBarSong();
+  //change old song number cell to the song number
+  var prevPlayingCell = getSongNumberCell(currentSongIndex + 1);
+  prevPlayingCell.html(currentSongIndex + 1);
+  //change the new song's number cell to a pause button
+  var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+  currentlyPlayingCell.html(pauseButtonTemplate);
+}
 
 // Album button templates
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
@@ -153,6 +178,6 @@ var $nextButton = $('.main-controls .next');
 
 $(document).ready(function() {
    setCurrentAlbum(albumPicasso);
-   $previousButton.click(previousSong);
-   $nextButton.click(nextSong);
+   $previousButton.click(switchSong);
+   $nextButton.click(switchSong);
 });
