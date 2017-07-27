@@ -13,26 +13,28 @@ var createSongRow = function(songNumber, songName, songLength) {
 
      var songNumber = $(this).attr('data-song-number');
 
-  	 if (currentlyPlayingSong !== null) {
+  	 if (currentlyPlayingSongNumber !== null) {
        //change the older played song to its song number
-    	  var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSong + '"]');
-    	  currentlyPlayingCell.html(currentlyPlayingSong);
+    	  var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+    	  currentlyPlayingCell.html(currentlyPlayingSongNumber);
   	 }
-  	 if (songNumber !== currentlyPlayingSong) {
+  	 if (songNumber !== currentlyPlayingSongNumber) {
        //change the current song to the currentlyPlayingSong
   		  $(this).html(pauseButtonTemplate);
-  		  currentlyPlayingSong = songNumber;
-  	 } else if (songNumber === currentlyPlayingSong) {
+  		  currentlyPlayingSongNumber = songNumber;
+  	 } else if (songNumber === currentlyPlayingSongNumber) {
        //stop the currently playing song
   		   $(this).html(playButtonTemplate);
-  		   currentlyPlayingSong = null;
+  		   currentlyPlayingSongNumber = null;
   	 }
+     //update current song from album
+     currentSongFromAlbum = currentlyPlayingSongNumber;
    };
 
    var onHover = function(event){
      var songItem = $(this).find('.song-item-number');
      var songItemNumber = songItem.attr('data-song-number');
-     if(songItemNumber !== currentlyPlayingSong){
+     if(songItemNumber !== currentlyPlayingSongNumber){
        songItem.html(playButtonTemplate);
      }
    };
@@ -40,7 +42,7 @@ var createSongRow = function(songNumber, songName, songLength) {
    var offHover = function(event){
      var songItem = $(this).find('.song-item-number');
      var songItemNumber = songItem.attr('data-song-number');
-     if(songItemNumber !== currentlyPlayingSong){
+     if(songItemNumber !== currentlyPlayingSongNumber){
        songItem.html(songItemNumber);
      }
    };
