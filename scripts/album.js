@@ -22,13 +22,13 @@ var createSongRow = function(songNumber, songName, songLength) {
        //change the current song to the currentlyPlayingSong
   		  $(this).html(pauseButtonTemplate);
   		  currentlyPlayingSongNumber = songNumber;
+        currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
   	 } else if (songNumber === currentlyPlayingSongNumber) {
        //stop the currently playing song
   		   $(this).html(playButtonTemplate);
   		   currentlyPlayingSongNumber = null;
+         currentSongFromAlbum = null;
   	 }
-     //update current song from album
-     currentSongFromAlbum = currentlyPlayingSongNumber;
    };
 
    var onHover = function(event){
