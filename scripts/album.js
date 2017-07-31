@@ -188,7 +188,6 @@ var previousSong = function(){
   currentlyPlayingCell.html(pauseButtonTemplate);
 }
 
-<<<<<<< HEAD
 var updateSeekBarWhilePlayingSong = function(){
   if(currentSoundFile){
     currentSoundFile.bind('timeupdate', function(event){
@@ -282,7 +281,6 @@ var filterTimeCode = function(timeInSeconds){
   return minutes + ':' + formattedSeconds;
 };
 
-=======
 var togglePlayFromPlayerBar = function(){
   if(currentSoundFile.isPaused()){
     /*
@@ -305,7 +303,6 @@ var togglePlayFromPlayerBar = function(){
   }
 };
 
->>>>>>> assignment-20-jquery-buzz-library
 // Album button templates
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
