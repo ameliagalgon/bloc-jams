@@ -188,6 +188,7 @@ var previousSong = function(){
   currentlyPlayingCell.html(pauseButtonTemplate);
 }
 
+<<<<<<< HEAD
 var updateSeekBarWhilePlayingSong = function(){
   if(currentSoundFile){
     currentSoundFile.bind('timeupdate', function(event){
@@ -281,6 +282,30 @@ var filterTimeCode = function(timeInSeconds){
   return minutes + ':' + formattedSeconds;
 };
 
+=======
+var togglePlayFromPlayerBar = function(){
+  if(currentSoundFile.isPaused()){
+    /*
+    Change the song number cell from a play button to a pause button
+    Change the HTML of the player bar's play button to a pause button
+    Play the song
+    */
+    getSongNumberCell(currentlyPlayingSongNumber).html(pauseButtonTemplate);
+    $playPauseButton.html(playerBarPauseButton);
+    currentSoundFile.play();
+  } else if(currentSoundFile.isPaused() === false){
+    /*
+    Change the song number cell from a pause button to a play button
+    Change the HTML of the player bar's pause button to a play button
+    Pause the song
+    */
+    getSongNumberCell(currentlyPlayingSongNumber).html(playButtonTemplate);
+    $playPauseButton.html(playerBarPlayButton);
+    currentSoundFile.pause();
+  }
+};
+
+>>>>>>> assignment-20-jquery-buzz-library
 // Album button templates
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
@@ -296,10 +321,12 @@ var currentVolume = 80;
 
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $playPauseButton = $('.main-controls .play-pause');
 
 $(document).ready(function() {
    setCurrentAlbum(albumPicasso);
    setupSeekBars();
    $previousButton.click(previousSong);
    $nextButton.click(nextSong);
+   $playPauseButton.click(togglePlayFromPlayerBar);
 });
